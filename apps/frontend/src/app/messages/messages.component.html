@@ -1,0 +1,45 @@
+<div class="messages-container">
+  <p-toast></p-toast>
+  
+  <p-card header="User Messages" styleClass="mb-4">
+    <app-message-form (messageCreated)="onMessageCreated()"></app-message-form>
+  </p-card>
+
+  <p-card header="All Messages">
+    <p-table
+      [value]="messages"
+      [paginator]="true"
+      [rows]="rows"
+      [totalRecords]="totalRecords"
+      [lazy]="true"
+      [loading]="loading"
+      [first]="first"
+      (onLazyLoad)="loadMessages($event)"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} messages"
+      [rowsPerPageOptions]="[3]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Date</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-message>
+        <tr>
+          <td>{{ message.name }}</td>
+          <td>{{ message.email }}</td>
+          <td>{{ message.message }}</td>
+          <td>{{ message.createdAt | date:'short' }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4" class="text-center">No messages found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

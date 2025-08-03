@@ -1,0 +1,61 @@
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+  <div class="form-grid">
+    <div class="form-field">
+      <label for="name">Name *</label>
+      <input
+        pInputText
+        id="name"
+        formControlName="name"
+        placeholder="Enter your name"
+        [class.ng-invalid]="f['name'].invalid && f['name'].touched"
+      />
+      <small class="p-error" *ngIf="f['name'].invalid && f['name'].touched">
+        <span *ngIf="f['name'].errors?.['required']">Name is required</span>
+        <span *ngIf="f['name'].errors?.['maxlength']">Name must be less than 100 characters</span>
+      </small>
+    </div>
+
+    <div class="form-field">
+      <label for="email">Email *</label>
+      <input
+        pInputText
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        [class.ng-invalid]="f['email'].invalid && f['email'].touched"
+      />
+      <small class="p-error" *ngIf="f['email'].invalid && f['email'].touched">
+        <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+        <span *ngIf="f['email'].errors?.['email']">Please enter a valid email address</span>
+        <span *ngIf="f['email'].errors?.['maxlength']">Email must be less than 100 characters</span>
+      </small>
+    </div>
+
+    <div class="form-field full-width">
+      <label for="message">Message *</label>
+      <textarea
+        pInputTextarea
+        id="message"
+        formControlName="message"
+        placeholder="Enter your message"
+        rows="4"
+        [class.ng-invalid]="f['message'].invalid && f['message'].touched"
+      ></textarea>
+      <small class="p-error" *ngIf="f['message'].invalid && f['message'].touched">
+        <span *ngIf="f['message'].errors?.['required']">Message is required</span>
+        <span *ngIf="f['message'].errors?.['maxlength']">Message must be less than 500 characters</span>
+      </small>
+    </div>
+
+    <div class="form-actions">
+      <p-button
+        label="Submit Message"
+        icon="pi pi-send"
+        type="submit"
+        [loading]="submitting"
+        [disabled]="submitting"
+      ></p-button>
+    </div>
+  </div>
+</form>
